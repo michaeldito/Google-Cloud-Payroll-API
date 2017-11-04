@@ -6,7 +6,8 @@
 # Option 1 : 
 #		alter the file "default" in your 
 # 		home directory before running the script
-#  		and than run this script after
+#  		and than run this script after.
+# 		(This step requires you to unzip the folder LoadBalancer.tar.gz)
 
 # Option 2 :
 # 		Run the script and directly alter the Nginx file 
