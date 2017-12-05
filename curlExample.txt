@@ -1,1 +1,0 @@
-curl -vX POST http://35.197.58.26:80/submit -d @batch.json
