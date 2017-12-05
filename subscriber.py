@@ -1,3 +1,5 @@
+""" subscriber.py """
+
 import argparse
 import time
 import json

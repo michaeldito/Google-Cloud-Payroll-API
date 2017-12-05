@@ -1,3 +1,5 @@
+"""publisher.py"""
+
 import argparse
 
 from google.cloud import pubsub_v1
