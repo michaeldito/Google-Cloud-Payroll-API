@@ -1,0 +1,27 @@
+{
+	"batch_id": 1,
+	"timestamp": "",
+	"pay_period": "November",
+	"company_id": 1,
+	"records": [
+				{
+					"employee_id": 1,
+					"date": "2017-11-01",
+					"hours": 8,
+					"type": "regular"
+				},
+				{
+					"employee_id": 1,
+					"date": "2017-11-02",
+					"hours": 8,
+					"type": "regular"
+				},
+				{
+					"employee_id": 1,
+					"date": "2017-11-03",
+					"hours": 8,
+					"type": "regular"
+				}
+	],
+	"batch_size": 3
+}
