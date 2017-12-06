@@ -1,1 +1,1 @@
-sudo FLASK_APP=~/restserver/restserver.py flask run --host=0.0.0.0 --port=80
+sudo FLASK_APP=~/cloudpay/restserver/restserver.py flask run --host=0.0.0.0 --port=80
