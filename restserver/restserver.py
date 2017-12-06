@@ -10,113 +10,104 @@ app = Flask(__name__)
 
 paystubs = {}
 
-subscriber = pubsub_v1.SubscriberClient()
-paystub_delivery_subscription_path = subscriber.subscription_path('cs-385-cloudpay', 'application-0-paystub-delivery')
-
-msg = ""
-def callback(message):
-	print('Received message {}'.format(message))
-	print('Ackknowledging...')
+#msg = ""
+def paystub_delivery_callback(message):
+	print('Received paystub-delivery message')
 	message.ack()
-	print('Printing with json.loads...')
 	data = json.loads(message.data)
 	print json.dumps(data, indent=2)
-	print('Adding to paystubs')
 	ssn = int(data['ssn'])
-	print('Checking ssn type')
-	print(type(ssn))
 	paystubs[ssn] = data
-	print(paystubs[ssn])
+	print('New paystubs entry: {} => {}'.format(str(ssn), str(paystubs[ssn])))
 
-subscriber.subscribe(paystub_delivery_subscription_path, callback=callback)
+subscriber.subscribe(paystub_delivery_sub_path, callback=paystub_delivery_callback)
+subscriber = pubsub_v1.SubscriberClient()
+paystub_delivery_sub_path = subscriber.subscription_path('cs-385-cloudpay', 'application-0-paystub-delivery')
+
+
 
 @app.route("/submit", methods=['POST', 'GET'])
 def submit():
-	batch = request.get_json(force=True)
-	batch['timestamp'] = datetime.datetime.utcnow().isoformat()
-	print('--- Incoming Request ---')
-	print json.dumps(batch,indent=4)
-	print('---- End of Request ----')
-	
+	incoming_data = request.get_json(force=True)
+	incoming_data['Time Received'] = datetime.datetime.utcnow().isoformat()
+	print('--- New Timesheet Data Received ---')
+	print json.dumps(incoming_data,indent=4)
+
 	publisher = pubsub_v1.PublisherClient()
 	topic_path = publisher.topic_path('cs-385-cloudpay', 'insert-timesheets')
 	data = request.data.encode('utf-8')
 	publisher.publish(topic_path, data=data)
 
-	return Response(response=json.dumps(batch, indent=2), status=200, mimetype="application/json")
+	return Response(response=json.dumps(incoming_data, indent=2), status=200, mimetype="application/json")
 
 @app.route("/createCompany", methods=['POST', 'GET'])
 def create_company():
-	batch = request.get_json(force=True)
-	print('--- Incoming Request ---')
-	print json.dumps(batch,indent=4)
-	print('---- End of Request ----')
+	incoming_data = request.get_json(force=True)
+	incoming_data['Time Received'] = datetime.datetime.utcnow().isoformat()
+	print('--- New Company Data Received ---')
+	print json.dumps(incoming_data,indent=4)
 
 	publisher = pubsub_v1.PublisherClient()
 	topic_path = publisher.topic_path('cs-385-cloudpay', 'insert-new-company')
 	data = request.data.encode('utf-8')
 	publisher.publish(topic_path, data=data)
 
-	return Response(response=json.dumps(batch, indent=2), status=200, mimetype="application/json")
+	return Response(response=json.dumps(incoming_data, indent=2), status=200, mimetype="application/json")
 
 @app.route("/addEmployee", methods=['POST', 'GET'])
 def add_employee():
-	batch = request.get_json(force=True)
-	print('--- Incoming Request ---')
-	print json.dumps(batch,indent=4)
-	print('---- End of Request ----')
+	incoming_data = request.get_json(force=True)
+	incoming_data['Time Received'] = datetime.datetime.utcnow().isoformat()
+	print('--- New Employee Data Received ---')
+	print json.dumps(incoming_data,indent=4)
 
 	publisher = pubsub_v1.PublisherClient()
 	topic_path = publisher.topic_path('cs-385-cloudpay', 'insert-new-employee')
 	data = request.data.encode('utf-8')
 	publisher.publish(topic_path, data=data)
 
-	return Response(response=json.dumps(batch, indent=2), status=200, mimetype="application/json")
+	return Response(response=json.dumps(incoming_data, indent=2), status=200, mimetype="application/json")
 
 
 @app.route("/deliveryRequest", methods=['POST', 'GET'])
 def delivery_request():
-	batch = request.get_json(force=True)
-	print('--- Incoming Request ---')
-	print json.dumps(batch,indent=4)
-	print('---- End of Request ----')
+	incoming_data = request.get_json(force=True)
+	incoming_data['Time Received'] = datetime.datetime.utcnow().isoformat()
+	print('--- Paystub Delivery Request ---')
+	print json.dumps(incoming_data,indent=4)
 
 	publisher = pubsub_v1.PublisherClient()
 	topic_path = publisher.topic_path('cs-385-cloudpay', 'delivery-request')
 	data = request.data.encode('utf-8')
 	publisher.publish(topic_path, data=data)
 
-	return Response(response=json.dumps(batch, indent=2), status=200, mimetype="application/json")
+	return Response(response=json.dumps(incoming_data, indent=2), status=200, mimetype="application/json")
 
 @app.route("/paystub", methods=['POST', 'GET'])
 def paystub():
-	batch = request.get_json(force=True)
-	print('--- Incoming Request ---')
-	print json.dumps(batch,indent=4)
-	print('---- End of Request ----')
+	incoming_data = request.get_json(force=True)
+	incoming_data['Time Received'] = datetime.datetime.utcnow().isoformat()
+	print('--- Paystub Pickup Request ---')
+	print json.dumps(incoming_data,indent=4)
 
-	data = request.get_json(force=True)
-	print('Inside paystub\nPrinting request.get_json()')
-	print(data)
-	ssn = data['ssn']
-
+	ssn = incoming_data['ssn']
 	paystub = paystubs[ssn]
 
 	return Response(response=json.dumps(paystub, indent=2), status=200, mimetype="application/json")
 
 @app.route("/calculateAccruals", methods=['POST', 'GET'])
 def calculate_accruals():
-	batch = request.get_json(force=True)
-	print('--- Incoming Request ---')
-	print json.dumps(batch,indent=4)
-	print('---- End of Request ----')
+	incoming_data = request.get_json(force=True)
+	incoming_data['Time Received'] = datetime.datetime.utcnow().isoformat()	
+	print('--- Calculate Accruals Request ---')
+	print json.dumps(incoming_data,indent=4)
 
 	publisher = pubsub_v1.PublisherClient()
 	topic_path = publisher.topic_path('cs-385-cloudpay', 'calculate-accruals')
 	data = request.data.encode('utf-8')
 	publisher.publish(topic_path, data=data)
 
-	return Response(response=json.dumps(batch, indent=2), status=200, mimetype="application/json")
+	return Response(response=json.dumps(incoming_data, indent=2), status=200, mimetype="application/json")
 
 
 if __name__ == '__main__':
