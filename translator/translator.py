@@ -6,15 +6,11 @@ import logging
 logging.basicConfig()
 
 subscriber = pubsub_v1.SubscriberClient()
-subscription_path = subscriber.subscription_path('cs-385-cloudpay', 'translator-0-timesheets')
 
-# subscriber for the insert-new company
+subscription_path = subscriber.subscription_path('cs-385-cloudpay', 'translator-0-timesheets')
 insert_NC_sub_path = subscriber.subscription_path('cs-385-cloudpay', 'translator-0-insert-new-company') 
 insert_NE_sub_path = subscriber.subscription_path('cs-385-cloudpay', 'translator-0-insert-new-employee')
-#insert_NT_sub_path = subscriber.subscription_path('cs-385-cloudpay', 'insert-timesheets')    
 
-#publisher = pubsub_v1.PublisherClient()
-#topic_path = publisher.topic_path('cs-385-cloudpay', 'Batch-Status')
 
 db = MySQLdb.connect('35.197.29.57', 'root', 'cs385', 'cloudpay')
 cursor = db.cursor()
@@ -22,6 +18,7 @@ cursor = db.cursor()
 def get_data():
 	msg = ""
 	def new_timesheet_callback(message):
+		print('In timesheet callback')
 		print('Received message: {}'.format(message))
 		message.ack() # change wen we get sql status from insert
 		data = json.loads(message.data)
@@ -31,12 +28,14 @@ def get_data():
 		translate_new_timesheet(data)
 	def new_company_callback(message) :
 		print("in new_company_callback")
+		print('Received message: {}'.format(message))
 		message.ack() # change wen we get sql status from insert		
 		data = json.loads(message.data)		
 		translate_new_company(data)	
 
 	def new_emp_callback(message):
 		print("in new_emp_callback")
+		print('Received message: {}'.format(message))
 		message.ack()
 		data = json.loads(message.data)
 		translate_new_emp(data)
@@ -45,9 +44,8 @@ def get_data():
 	subscriber.subscribe(subscription_path, callback=new_timesheet_callback)
 	subscriber.subscribe(insert_NC_sub_path, callback=new_company_callback)
 	subscriber.subscribe(insert_NE_sub_path, callback=new_emp_callback)
-	#subscriber.subscribe(insert_NT_sub_path, callback=new_timesheet_callback)
 	
-	print('Listening for messages on {}'.format(subscription_path))
+	print('Listening for messages on\n{}\n{}\n{}'.format(subscription_path, insert_NC_sub_path, insert_NE_sub_path))
 	while True:
 		time.sleep(60)
 
@@ -107,12 +105,6 @@ def translate_new_timesheet(data):
 			print(' FAILED')
 		else:
 			print(' SUCCESS')		
-
-	#print('Errors: {}'.format(errors))
-	#if not errors:
-	#	publisher.publish(topic_path, 'Successfully received your timesheet data')
-	#else:
-	#	publisher.publish(topic_path, 'Bad timesheet data. Check your JSON values\n {}'.format(json.dumps(data, indent=4)))
 
 if __name__ == '__main__':
 	get_data()
