@@ -30,9 +30,9 @@ def listen():
 		time.sleep(60)
 
 def deliver(data):
-	company_id = data['company_id']
-	employee_id = data['employee_id']
-	pay_period = data['pay_period']
+	company_id = data['CompanyId']
+	employee_id = data['EmployeeId']
+	pay_period = data['PayPeriod']
 
 	query = "SELECT c.CompanyName, e.Name, e.EmployeeSsn, p.PayPeriod, p.Pay " \
 		+ "FROM Paystubs p JOIN Company c ON c.CompanyId = p.CompanyId " \
@@ -49,13 +49,14 @@ def deliver(data):
 	paystub_data = {}
 	paystub_data['company_name'] = str(paystub[0])
 	paystub_data['employee_name'] = str(paystub[1])
+	paystub_data['pay_period'] = str(paystub[3])
 	paystub_data['ssn'] = str(paystub[2])
 	paystub_data['income'] = str(paystub[4])
 
 	paystub_json = json.dumps(paystub_data)
 
 	publisher = pubsub_v1.PublisherClient()
-	pay_stub_delivery_topic_path = publisher.topic_path('cs-385-cloudpay', 'paystub-delivery')
+	paystub_delivery_topic_path = publisher.topic_path('cs-385-cloudpay', 'paystub-delivery')
 	data = paystub_json.encode('utf-8')
 	publisher.publish(paystub_delivery_topic_path, data=data)
 
