@@ -12,7 +12,7 @@ timesheet_sub_path = subscriber.subscription_path('cs-385-cloudpay', 'translator
 insert_new_company_sub_path = subscriber.subscription_path('cs-385-cloudpay', 'translator-0-insert-new-company') 
 insert_new_employee_sub_path = subscriber.subscription_path('cs-385-cloudpay', 'translator-0-insert-new-employee')
 
-panner_client = spanner.Client()
+spanner_client = spanner.Client()
 instance_id = 'cloudpay-db'
 instance = spanner_client.instance(instance_id)
 database_id = 'cloudpay'
@@ -46,52 +46,58 @@ def listen():
 	subscriber.subscribe(insert_new_company_sub_path, callback=new_company_callback)
 	subscriber.subscribe(insert_new_employee_sub_path, callback=new_employee_callback)
 	
-	print('Listening for messages on:\n{}\n{}\n{}'.format(subscription_path, insert_NC_sub_path, insert_NE_sub_path))
+	print('Listening for messages on:\n{}\n{}\n{}'.format(timesheet_sub_path, insert_new_company_sub_path, insert_new_employee_sub_path))
 	while True:
 		time.sleep(60)
 
 def translate_new_company(data):
-	company_name = data["company_name"]
-	query = "INSERT INTO Company (CompanyName) VALUES (\'{}\');".format(company_name)
+	company_name = data["CompanyName"]
+	company_id = data['CompanyId']
+	query = "INSERT INTO Company (CompanyName, CompanyId) VALUES (\'{}\', {});".format(company_name, company_id)
 	print(query)
 	with database.batch() as batch:
 		batch.insert(
 			table='Company', 
-			columns=('CompanyName'), 
-			values=[company_name])
+			columns=('CompanyName', 'CompanyId'), 
+			values=[(company_name, company_id)])
+	print('Company was inserted successfully')
  
 def translate_new_employee(data):
 	for record in data['employees']:
-		employee_ssn = record['employee_ssn']
-		company_id = record['company_id']
-		hourly_pay_rate = record['hourly_pay_rate']
-		name = record['name']
-		query = "INSERT INTO Employees (EmployeeSsn, CompanyId, HourlyPayRate, Name)'\
-			+ ' VALUES ({},{},{}, \'{}\');".format(employee_ssn, company_id, hourly_pay_rate, name)
+		employee_id = record['EmployeeId']
+		employee_ssn = record['EmployeeSsn']
+		company_id = record['CompanyId']
+		hourly_pay_rate = record['HourlyPayRate']
+		name = record['Name']
+		query = "INSERT INTO Employees (EmployeeId, EmployeeSsn, CompanyId, HourlyPayRate, Name)' \
+			+ ' VALUES ({},{},{}, \'{}\');".format(employee_id, employee_ssn, company_id, hourly_pay_rate, name)
 		print(query)
 		with database.batch() as batch:
 			batch.insert(
 				table='Employees', 
-				columns=('EmployeeSsn', 'CompanyId', 'HourlyPayRate', 'Name'),
-				values=[(employee_ssn, company_id, hourly_pay_rate, name)])
+				columns=('EmployeeId', 'EmployeeSsn', 'CompanyId', 'HourlyPayRate', 'Name'),
+				values=[(employee_id, employee_ssn, company_id, hourly_pay_rate, name)])
+	print('Employee(s) inserted successfully')
 
 def translate_new_timesheet(data):
-	company_id = data['company_id']
-	pay_period = data['pay_period']
+	company_id = data['CompanyId']
+	pay_period = data['PayPeriod']
 	for record in data['records']:
-		date = record['date']
-		hours = record['hours']
-		employee_id = record['employee_id']
-		work_type = record['type']
-		query = 'INSERT INTO Timesheet (EmployeeId, CompanyId, Hours, Type, Date, PayPeriod)' \
-			+ ' VALUES ({}, {}, {}, \'{}\', \'{}\', \'{}\');'.format(
-			employee_id, company_id, hours, work_type, date, pay_period)
+		timesheet_id = record['TimesheetId']
+		date = record['Date']
+		hours = record['HoursWorked']
+		employee_id = record['EmployeeId']
+		work_type = record['Type']
+		query = 'INSERT INTO Timesheets (TimesheetId, EmployeeId, CompanyId, HoursWorked, Type, Date, PayPeriod)' \
+			+ ' VALUES ({}, {}, {}, {}, \'{}\', \'{}\', \'{}\');'.format(
+			timesheet_id, employee_id, company_id, hours, work_type, date, pay_period)
 		print(query)
 		with database.batch() as batch:
 			batch.insert(
-				table='Timesheet',
-				columns=('EmployeeId', 'CompanyId', 'Hours', 'Type', 'Date', 'PayPeriod'),
-				values=[(employee_id, company_id, hours, work_type, date, pay_period)])
+				table='Timesheets',
+				columns=('TimesheetId', 'EmployeeId', 'CompanyId', 'HoursWorked', 'Type', 'Date', 'PayPeriod'),
+				values=[(timesheet_id, employee_id, company_id, hours, work_type, date, pay_period)])
+	print('Timesheet(s) inserted successfully')
 
 if __name__ == '__main__':
 	listen()
