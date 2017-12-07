@@ -10,6 +10,9 @@ app = Flask(__name__)
 
 paystubs = {}
 
+subscriber = pubsub_v1.SubscriberClient()
+paystub_delivery_sub_path = subscriber.subscription_path('cs-385-cloudpay', 'application-0-paystub-delivery')
+
 #msg = ""
 def paystub_delivery_callback(message):
 	print('Received paystub-delivery message')
@@ -21,10 +24,6 @@ def paystub_delivery_callback(message):
 	print('New paystubs entry: {} => {}'.format(str(ssn), str(paystubs[ssn])))
 
 subscriber.subscribe(paystub_delivery_sub_path, callback=paystub_delivery_callback)
-subscriber = pubsub_v1.SubscriberClient()
-paystub_delivery_sub_path = subscriber.subscription_path('cs-385-cloudpay', 'application-0-paystub-delivery')
-
-
 
 @app.route("/submit", methods=['POST', 'GET'])
 def submit():
