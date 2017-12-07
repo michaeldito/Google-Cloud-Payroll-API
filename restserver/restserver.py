@@ -6,6 +6,9 @@ from google.cloud import pubsub_v1
 import logging
 logging.basicConfig()
 
+import socket
+ip = socket.gethostbyname(socket.gethostname())
+
 app = Flask(__name__)
 
 paystubs = {}
@@ -29,6 +32,7 @@ subscriber.subscribe(paystub_delivery_sub_path, callback=paystub_delivery_callba
 def submit():
 	incoming_data = request.get_json(force=True)
 	incoming_data['Time Received'] = datetime.datetime.utcnow().isoformat()
+	incoming_data['Internal IP'] = ip
 	print('--- New Timesheet Data Received ---')
 	print json.dumps(incoming_data,indent=4)
 
@@ -43,6 +47,7 @@ def submit():
 def create_company():
 	incoming_data = request.get_json(force=True)
 	incoming_data['Time Received'] = datetime.datetime.utcnow().isoformat()
+	incoming_data['Internal IP'] = ip
 	print('--- New Company Data Received ---')
 	print json.dumps(incoming_data,indent=4)
 
@@ -57,6 +62,7 @@ def create_company():
 def add_employee():
 	incoming_data = request.get_json(force=True)
 	incoming_data['Time Received'] = datetime.datetime.utcnow().isoformat()
+	incoming_data['Internal IP'] = ip
 	print('--- New Employee Data Received ---')
 	print json.dumps(incoming_data,indent=4)
 
@@ -72,6 +78,7 @@ def add_employee():
 def delivery_request():
 	incoming_data = request.get_json(force=True)
 	incoming_data['Time Received'] = datetime.datetime.utcnow().isoformat()
+	incoming_data['Internal IP'] = ip
 	print('--- Paystub Delivery Request ---')
 	print json.dumps(incoming_data,indent=4)
 
@@ -86,6 +93,7 @@ def delivery_request():
 def paystub():
 	incoming_data = request.get_json(force=True)
 	incoming_data['Time Received'] = datetime.datetime.utcnow().isoformat()
+	incoming_data['Internal IP'] = ip
 	print('--- Paystub Pickup Request ---')
 	print json.dumps(incoming_data,indent=4)
 
@@ -98,6 +106,7 @@ def paystub():
 def calculate_accruals():
 	incoming_data = request.get_json(force=True)
 	incoming_data['Time Received'] = datetime.datetime.utcnow().isoformat()	
+	incoming_data['Internal IP'] = ip
 	print('--- Calculate Accruals Request ---')
 	print json.dumps(incoming_data,indent=4)
 
