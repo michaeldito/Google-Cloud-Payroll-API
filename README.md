@@ -33,7 +33,7 @@ Now, create your Managed Instance Group using your Instance Template
 https://cloud.google.com/compute/docs/instance-groups/distributing-instances-with-regional-instance-groups
 
 ## Load Balancer
-You are now ready to enable the Load Balancer.
+You are now ready to enable the Load Balancer.   
 https://cloud.google.com/compute/docs/load-balancing/network/
 
 ## Auto-Scaling
