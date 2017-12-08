@@ -1,4 +1,4 @@
-# CS-385-CloudPayroll
+# A RESTful Auto-Scaling Payroll API
 
 A scalable REST API to calculate your payroll, using Flask, Google Cloud, and Pub/Sub.
 Two scripts are provided for each component, one will use Google SQL, the other will
