@@ -40,6 +40,23 @@ https://cloud.google.com/compute/docs/load-balancing/network/
 Now that the Load Balancer is enabled, you can opt to turn on Auto-Scaling.
 https://cloud.google.com/compute/docs/autoscaler/scaling-cpu-load-balancing
 
+## Pub/Sub
+You'll need to create the following topics:   
+* insert-new-company   
+* insert-new-employee    
+* insert-timesheets
+* calculate-accruals   
+* delivery-request   
+* paystub-delivery
+
+Now, you'll need to create the subscriptions to these topics that the components will use:
+* application-0-paystub-delivery   
+* accruals-0-calculate-accruals   
+* delivery-0-delivery-request   
+* translator-0-timesheets   
+* translator-0-insert-new-company   
+* translator-0-insert-new-employee  
+
 **The service should now be ready.**
 
 ## Startup Scripts
