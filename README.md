@@ -19,17 +19,17 @@ Now use spanner.sql to create your tables.
 
 ## Base Image
 The easiest way to set up Application, Accruals, Delivery, and Translator is to create
-a base image with all libraries needed. Install all requirements with
+a base image with all libraries needed. Install all requirements with:
 `pip install -r requirements`
-Now, go ahead and create your base image. (Make sure it contains the sql-proxy if you
-are using Cloud SQL)
+Now, go ahead and create your base image (make sure it contains the sql-proxy if you
+are using Cloud SQL).
 
 ## Instance Template
 In order to Load Balancer you need a Managed Instance Group. To create a Managed Instance
 Group, you need an Instance Template.
 
 ## Managed Instance Group
-Now, create your Managed Instance Group using your Instance Template
+Now, create your Managed Instance Group using your Instance Template.
 https://cloud.google.com/compute/docs/instance-groups/distributing-instances-with-regional-instance-groups
 
 ## Load Balancer
@@ -43,9 +43,9 @@ https://cloud.google.com/compute/docs/autoscaler/scaling-cpu-load-balancing
 **The service should now be ready.**
 
 ## Startup Scripts
-Each component has a startup script, here are their locations
+Each component has a startup script, here are their locations:
 
-Application - restserver/start-server.sh
+Application - `restserver/start-server.sh`
 
 The following components have 2 options: one script is for the SQL database, the other is for Spanner.
 			SQL				Spanner
