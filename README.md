@@ -66,5 +66,5 @@ Examples:
 `python test.py deliveryRequest`   
 `python test.py paystub`   
 
-Scale Test:
+Scale Test:   
 `python test.py deliveryRequest scale`  
