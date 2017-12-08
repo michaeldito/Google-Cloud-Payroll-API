@@ -4,9 +4,6 @@ A scalable REST API to calculate your payroll, using Flask, Google Cloud, and Pu
 Two scripts are provided for each component, one will use Google SQL, the other will
 use Google Cloud Spanner.
 
-## Setup
-In order to use Pub/Sub, a service account key with Pub/Sub access should be set up.
-
 ## Google Cloud SQL
 If you opt for Cloud SQL as your database, you must install the cloud sql proxy.
 https://cloud.google.com/sql/docs/mysql/sql-proxy
@@ -41,7 +38,8 @@ Now that the Load Balancer is enabled, you can opt to turn on Auto-Scaling.
 https://cloud.google.com/compute/docs/autoscaler/scaling-cpu-load-balancing
 
 ## Pub/Sub
-You'll need to create the following topics:   
+In order to use Pub/Sub, a service account key with Pub/Sub access should be set up.
+Next, you'll need to create the following topics:   
 * insert-new-company   
 * insert-new-employee    
 * insert-timesheets
