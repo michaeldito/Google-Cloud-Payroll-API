@@ -15,7 +15,7 @@ https://cloud.google.com/spanner/docs/create-manage-instances
 Now use spanner.sql to create your tables.
 
 ## Base Image
-The easiest way to set up Application, Accruals, Delivery, and Translator is to create
+A simple way to set up Application, Accruals, Delivery, and Translator is to create
 a base image with all libraries needed. Install all requirements with:
 `pip install -r requirements`
 Now, go ahead and create your base image (make sure it contains the sql-proxy if you
