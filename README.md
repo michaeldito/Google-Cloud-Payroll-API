@@ -18,12 +18,12 @@ Now use spanner.sql to create your tables.
 A simple way to set up Application, Accruals, Delivery, and Translator is to create
 a base image with all libraries needed. Install all requirements with:
 `pip install -r requirements`
-Now, go ahead and create your base image (make sure it contains the sql-proxy if you
-are using Cloud SQL).
+Now create your base image (make sure it contains the sql-proxy if you are using Cloud SQL).
 
 ## Instance Template
-In order to Load Balancer you need a Managed Instance Group. To create a Managed Instance
-Group, you need an Instance Template.
+In order to add a Load Balancer you need a Managed Instance Group. To create a Managed Instance
+Group, you need an Instance Template that defines the properties of the group.
+https://cloud.google.com/compute/docs/instance-templates/create-instance-templates
 
 ## Managed Instance Group
 Now, create your Managed Instance Group using your Instance Template.
@@ -34,11 +34,12 @@ You are now ready to enable the Load Balancer.
 https://cloud.google.com/compute/docs/load-balancing/network/
 
 ## Auto-Scaling
-Now that the Load Balancer is enabled, you can opt to turn on Auto-Scaling.
+Now that the Load Balancer is enabled, you have the option to turn on Auto-Scaling.
 https://cloud.google.com/compute/docs/autoscaler/scaling-cpu-load-balancing
 
 ## Pub/Sub
 In order to use Pub/Sub, a service account key with Pub/Sub access should be set up.
+
 Next, you'll need to create the following topics:   
 * insert-new-company   
 * insert-new-employee    
@@ -47,7 +48,7 @@ Next, you'll need to create the following topics:
 * delivery-request   
 * paystub-delivery
 
-Now, you'll need to create the subscriptions to these topics that the components will use:
+Now you'll need to create the subscriptions to these topics:
 * application-0-paystub-delivery   
 * accruals-0-calculate-accruals   
 * delivery-0-delivery-request   
@@ -63,8 +64,8 @@ Each component has a startup script, here are their locations:
 Application - `restserver/start-server.sh`
 
 The following components have 2 options: one script is for the SQL database, the other is for Spanner.     
-Accruals    - `accruals/accruals.py` 		`accruals/accruals_spanner.py`       
-Delivery    - `delivery/delivery.py`		`delivery/delivery_spanner.py`         
+Accruals    - `accruals/accruals.py` 		    `accruals/accruals_spanner.py`       
+Delivery    - `delivery/delivery.py`		    `delivery/delivery_spanner.py`         
 Translator  - `translator/translator.py`  	`translator/translator_spanner.py`       
 
 **Remember to star the cloud sql proxy if you are using Cloud SQL.**   
