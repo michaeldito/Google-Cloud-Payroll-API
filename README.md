@@ -48,8 +48,8 @@ Each component has a startup script, here are their locations:
 Application - `restserver/start-server.sh`
 
 The following components have 2 options: one script is for the SQL database, the other is for Spanner.
-			SQL				Spanner
-Accruals    - `accruals/accruals.py` 		`accruals/accruals_spanner.py`    
+			SQL				Spanner  
+Accruals    - `accruals/accruals.py` 		`accruals/accruals_spanner.py`     
 Delivery    - `delivery/delivery.py`		`delivery/delivery_spanner.py`   
 Translator  - `translator/translator.py`  	`translator/translator_spanner.py`   
 
