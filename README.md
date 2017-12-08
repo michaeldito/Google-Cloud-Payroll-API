@@ -22,7 +22,7 @@ Now create your base image (make sure it contains the sql-proxy if you are using
 
 ## Instance Template
 In order to add a Load Balancer you need a Managed Instance Group. To create a Managed Instance
-Group, you need an Instance Template that defines the properties of the group.
+Group, you need an Instance Template that defines the properties of the group.     
 https://cloud.google.com/compute/docs/instance-templates/create-instance-templates
 
 ## Managed Instance Group
