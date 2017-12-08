@@ -58,7 +58,7 @@ Use test.py to test your application. Be sure to update the IP address with your
 The test.py script requires one argument, and has a second optional argument if you'd like to test
 your services auto-scaling.
 
-Examples:
+Examples:   
 `python test.py createCompany`  
 `python test.py addEmployee`  
 `python test.py submit`   
