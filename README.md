@@ -48,10 +48,9 @@ Each component has a startup script, here are their locations:
 Application - `restserver/start-server.sh`
 
 The following components have 2 options: one script is for the SQL database, the other is for Spanner.
-			SQL				Spanner  
-Accruals    - `accruals/accruals.py` 		`accruals/accruals_spanner.py`     
-Delivery    - `delivery/delivery.py`		`delivery/delivery_spanner.py`     
-Translator  - `translator/translator.py`  	`translator/translator_spanner.py`   
+Accruals    - `accruals/accruals.py` 		`accruals/accruals_spanner.py`       
+Delivery    - `delivery/delivery.py`		`delivery/delivery_spanner.py`         
+Translator  - `translator/translator.py`  	`translator/translator_spanner.py`       
 
 ## Testing
 Use test.py to test your application. Be sure to update the IP address with your Load Balancer's IP.
