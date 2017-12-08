@@ -1,0 +1,27 @@
+{
+	"PayPeriod": "November 2017",
+	"CompanyId": 1,
+	"records": [
+				{
+					"TimesheetId": 4,
+					"EmployeeId": 1,
+					"Date": "2017-11-10",
+					"HoursWorked": 8.00,
+					"Type": "Regular"
+				},
+				{
+					"TimesheetId": 5,
+					"EmployeeId": 1,
+					"Date": "2017-11-12",
+					"HoursWorked": 8.00,
+					"Type": "Regular"
+				},
+				{
+					"TimesheetId": 6,
+					"EmployeeId": 1,
+					"Date": "2017-11-13",
+					"HoursWorked": 8.00,
+					"Type": "Regular"
+				}
+	]
+}

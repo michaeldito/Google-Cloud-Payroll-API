@@ -16,7 +16,6 @@ database_id = 'cloudpay'
 database = instance.database(database_id)
 
 def listen():
-#	msg = ""
 	def calculate_accruals_callback(message):
 		print('Received calulate-accruals message:')
 		message.ack()

@@ -16,7 +16,6 @@ paystubs = {}
 subscriber = pubsub_v1.SubscriberClient()
 paystub_delivery_sub_path = subscriber.subscription_path('cs-385-cloudpay', 'application-0-paystub-delivery')
 
-#msg = ""
 def paystub_delivery_callback(message):
 	print('Received paystub-delivery message')
 	message.ack()

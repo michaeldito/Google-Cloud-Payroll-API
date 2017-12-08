@@ -16,7 +16,6 @@ database_id = 'cloudpay'
 database = instance.database(database_id)
 
 def listen():
-#	msg = ""
 	def delivery_callback(message):
 		print('Received delivery-request message:')
 		message.ack()
@@ -49,8 +48,8 @@ def deliver(data):
 	paystub_data = {}
 	paystub_data['company_name'] = str(paystub[0])
 	paystub_data['employee_name'] = str(paystub[1])
-	paystub_data['pay_period'] = str(paystub[3])
 	paystub_data['ssn'] = str(paystub[2])
+	paystub_data['pay_period'] = str(paystub[3])
 	paystub_data['income'] = str(paystub[4])
 
 	paystub_json = json.dumps(paystub_data)
