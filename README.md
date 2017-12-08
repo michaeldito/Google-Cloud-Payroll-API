@@ -52,7 +52,7 @@ Accruals    - `accruals/accruals.py` 		`accruals/accruals_spanner.py`    
 Delivery    - `delivery/delivery.py`		`delivery/delivery_spanner.py`         
 Translator  - `translator/translator.py`  	`translator/translator_spanner.py`       
 
-**Remember to star the cloud sql proxy if you are using Cloud SQL**   
+**Remember to star the cloud sql proxy if you are using Cloud SQL.**   
 https://cloud.google.com/sql/docs/mysql/connect-compute-engine
 
 ## Testing
