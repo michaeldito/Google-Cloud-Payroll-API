@@ -59,12 +59,12 @@ The test.py script requires one argument, and has a second optional argument if 
 your services auto-scaling.
 
 Examples:
-`python test.py createCompany`
-`python test.py addEmployee`
-`python test.py submit`
-`python test.py calculateAccruals`
-`python test.py deliveryRequest`
-`python test.py paystub
+`python test.py createCompany`  
+`python test.py addEmployee`  
+`python test.py submit`   
+`python test.py calculateAccruals`   
+`python test.py deliveryRequest`   
+`python test.py paystub`   
 
 Scale Test:
-`python test.py deliveryRequest scale`
+`python test.py deliveryRequest scale`  
