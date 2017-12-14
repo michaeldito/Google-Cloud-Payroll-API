@@ -8,6 +8,9 @@ use Google Cloud Spanner.
 If you opt for Cloud SQL as your database, you must install the cloud sql proxy.
 https://cloud.google.com/sql/docs/mysql/sql-proxy
 
+Also, any instance that needs access to the database must have a static IP address.
+https://cloud.google.com/sql/docs/mysql/connect-compute-engine
+
 ## Google Cloud Spanner
 If you opt for Cloud Spanner as your database, go ahead and create the instance.
 https://cloud.google.com/spanner/docs/create-manage-instances
