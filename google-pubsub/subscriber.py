@@ -1,4 +1,7 @@
-""" subscriber.py """
+""" 
+subscriber.py 
+This script has been provided by Google.
+"""
 
 import argparse
 import time
