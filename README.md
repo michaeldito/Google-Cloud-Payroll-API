@@ -40,6 +40,9 @@ https://cloud.google.com/compute/docs/load-balancing/network/
 Now that the Load Balancer is enabled, you have the option to turn on Auto-Scaling.
 https://cloud.google.com/compute/docs/autoscaler/scaling-cpu-load-balancing
 
+You can set up Auto-Scaling so that when the CPU% reaches a certain level, more 
+instances are added.
+
 ## Pub/Sub
 In order to use Pub/Sub, a service account key with Pub/Sub access should be set up.
 
@@ -71,13 +74,13 @@ Accruals    - `accruals/accruals.py` 		    `accruals/accruals_spanner.py`    
 Delivery    - `delivery/delivery.py`		    `delivery/delivery_spanner.py`         
 Translator  - `translator/translator.py`  	`translator/translator_spanner.py`       
 
-**Remember to star the cloud sql proxy if you are using Cloud SQL.**   
+**Remember to start the cloud sql proxy if you are using Cloud SQL.**   
 https://cloud.google.com/sql/docs/mysql/connect-compute-engine
 
 ## Testing
 Use test.py to test your application. Be sure to update the IP address with your Load Balancer's IP.
 The test.py script requires one argument, and has a second optional argument if you'd like to test
-your services auto-scaling.
+the auto-scaling feature.
 
 Examples:   
 `python test.py createCompany`  
