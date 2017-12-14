@@ -15,7 +15,8 @@ https://cloud.google.com/sql/docs/mysql/connect-compute-engine
 If you opt for Cloud Spanner as your database, go ahead and create the instance.
 https://cloud.google.com/spanner/docs/create-manage-instances
 
-Now use spanner.sql to create your tables.
+Now use spanner.sql to create your tables. One disadvantage of Spanner compared to SQL is 
+that Spanner does not have the auto incrementing data type.
 
 ## Base Image
 A simple way to set up Application, Accruals, Delivery, and Translator is to create
