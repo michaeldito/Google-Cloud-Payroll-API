@@ -82,13 +82,16 @@ Use test.py to test your application. Be sure to update the IP address with your
 The test.py script requires one argument, and has a second optional argument if you'd like to test
 the auto-scaling feature.
 
+The data folder has example JSON files that can be send to application. You can test each route
+by running test.py and providing an argument that is the name of the json file, without the '.json'
+
 Examples:   
-`python test.py createCompany`  
-`python test.py addEmployee`  
-`python test.py submit`   
-`python test.py calculateAccruals`   
-`python test.py deliveryRequest`   
-`python test.py paystub`   
+`python test.py data/createCompany`  
+`python test.py data/addEmployee`  
+`python test.py data/submit`   
+`python test.py data/calculateAccruals`   
+`python test.py data/deliveryRequest`   
+`python test.py data/paystub`   
 
 Scale Test:   
-`python test.py deliveryRequest scale`  
+`python test.py data/deliveryRequest scale`  
