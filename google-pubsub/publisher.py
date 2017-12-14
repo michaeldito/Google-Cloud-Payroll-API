@@ -1,4 +1,7 @@
-"""publisher.py"""
+"""
+publisher.py
+This script has been provided by Google.
+"""
 
 import argparse
 
