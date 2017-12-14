@@ -1,8 +1,9 @@
 # A RESTful Auto-Scaling Payroll API
 
-A scalable REST API to calculate your payroll, using Flask, Google Cloud, and Pub/Sub.
-Two scripts are provided for each component, one will use Google SQL, the other will
-use Google Cloud Spanner.
+A scalable RESTful API to calculate your payroll. Built with Flask, and hosted on the Google Cloud
+Platform. Two scripts are provided for each component, one will use Google SQL as the database, and
+the other will use Google Cloud Spanner. Google's Pub/Sub messaging service was used for communication
+between our components.
 
 ## Google Cloud SQL
 If you opt for Cloud SQL as your database, you must install the cloud sql proxy.
